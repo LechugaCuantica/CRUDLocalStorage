@@ -17,9 +17,8 @@ form.addEventListener("submit", (e) => onSubmit(e));
 // Evento al cargar la web
 document.addEventListener("DOMContentLoaded", () => {
     // Si existe isLogin se redirege al CRUD
-    if (localStorage.getItem("isLogin")) {
-        window.location.href = "./crud.html";
-    }
+    if (localStorage.getItem("isRemember")) return window.location.href = "./crud.html";
+
 })
 
 // Array de objetos
@@ -93,8 +92,10 @@ function onSubmit(e) {
 
     // Si el checkbox está seleccionado
     if (checkedInput.checked) {
-        localStorage.setItem("isLogin", true);
+        localStorage.setItem("isRemember", true);
     }
+
+    localStorage.setItem("isLogin", true)
 
     // Se redirige
     window.location.href = "./crud.html";

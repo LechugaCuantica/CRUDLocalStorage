@@ -15,7 +15,7 @@
     <div class="container">
         <h1 class="fw-bold mt-5">Gestión de Estudiantes</h1>
 
-        <form id="formData">
+        <form id="formData" class="border border-3 rounded-3 p-4 border-primary">
             <div class="mb-3">
                 <input type="hidden" id="id">
                 <label for="name" class="form-label">Nombre</label>
@@ -41,12 +41,16 @@
                     placeholder="" />
                 <small id="helpDate"></small>
             </div>
-
-            <button id="submit" class="btn btn-success" type="submit" disabled>Guardar</button>
-            <button type="button" class="btn btn-secondary" onclick="resetForm()" id="cancel">Cancelar</button>
+            <div class="d-flex justify-content-between">
+                <div>
+                    <button id="submit" class="btn btn-success" type="submit" disabled>Guardar</button>
+                    <button type="button" class="btn btn-secondary" onclick="resetForm()" id="cancel">Cancelar</button>
+                </div>
+                <button class="btn btn-info" onclick="logOut()">Cerrar sesión</button>
+            </div>
         </form>
 
-        <div class="table-responsive">
+        <div class="table-responsive border border-3 rounded-3 p-4 border-success mt-4">
             <table id="data" class="table table-hover mt-4 d-none">
                 <thead>
                     <tr>

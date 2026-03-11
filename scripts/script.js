@@ -18,7 +18,11 @@ inputs.forEach((input) => {
 });
 
 // Evento para cargar los estudiantes al cargar la página
-document.addEventListener("DOMContentLoaded", findAllStudents);
+document.addEventListener("DOMContentLoaded", () => {
+    if (localStorage.getItem("isLogin") !== "true") return window.location.href = "./index.html";
+
+    findAllStudents();
+});
 
 // Evento al hacer submit en el formulario
 form.addEventListener("submit", (e) => onSubmit(e));
@@ -217,5 +221,12 @@ function updateStudent() {
     findAllStudents();
     // Actualizamos el localStorage
     localStorage.setItem("students", JSON.stringify(students));
+}
+
+function logOut() {
+    localStorage.removeItem("isLogin");
+    localStorage.removeItem("isRemember");
+
+    window.location.href = "./index.html";
 }
 
