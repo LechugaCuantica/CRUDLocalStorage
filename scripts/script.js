@@ -163,6 +163,25 @@ function findAllStudents() {
     })
 }
 
+function calculateAge(dateBirth) {
+    // Fecha de hoy
+    const today = new Date()
+    // Fecha de nacimiento
+    const birthDay = new Date(dateBirth)
+
+    // Restamos el año actual y el de nacimiento
+    let age = today.getFullYear() - birthDay.getFullYear()
+
+    // restamos el mes actual y el mes de nacimiento
+    const month = today.getMonth() - birthDay.getMonth();
+
+    // Si el mes es menor a 0 o si el mes es igual a 0 y el día actual es menor al día de nacimiento restamos la edad 1 año
+    if (month < 0 || (month === 0 && today.getDate() < birthDay.getDate())) age--;
+
+    // Retornamos la fecha
+    return age;
+}
+
 // Agregar estudiante
 function addStudent() {
     // Objeto con todos los estudiantes y un ID aleatorio
@@ -171,7 +190,7 @@ function addStudent() {
         name: nameInput.value,
         email: email.value,
         phone: phone.value,
-        age: new Date().getFullYear() - new Date(date.value).getFullYear(),
+        age: calculateAge(date.value),
         date: date.value,
     }
     // Lo agregamos al arra y al localStorage
@@ -217,6 +236,7 @@ function updateStudent() {
     student.email = email.value;
     student.phone = phone.value;
     student.date = date.value;
+    student.age = calculateAge(date.value)
     // Recargamos la tabla
     findAllStudents();
     // Actualizamos el localStorage
