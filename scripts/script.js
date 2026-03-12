@@ -7,6 +7,7 @@ const date = document.getElementById("date");
 const submit = document.getElementById("submit");
 const inputs = document.querySelectorAll("#formData input");
 const form = document.getElementById("formData");
+const observationsInput = document.getElementById("observations");
 const table = document.getElementById("data");
 
 // Esudiantes del localStorage o array vacío si no hay en el storage
@@ -98,6 +99,7 @@ function resetForm() {
         input.value = "";
         input.classList.remove("is-valid");
         input.classList.remove("is-invalid");
+        observationsInput.value = ""
     });
     submit.disabled = true;
 }
@@ -137,6 +139,8 @@ function findAllStudents() {
         const phoneCell = document.createElement("td");
         const dateCell = document.createElement("td");
         const ageCell = document.createElement("td");
+        const observationsCell = document.createElement("td");
+
         const actionsCell = document.createElement("td");
 
         // Les ingresamos los datos
@@ -146,6 +150,8 @@ function findAllStudents() {
         phoneCell.textContent = student.phone;
         dateCell.textContent = student.date;
         ageCell.textContent = student.age;
+        observationsCell.textContent = student.observations || "No aplica.";
+
         actionsCell.innerHTML = `<button class="btn btn-warning" " onclick="editStudent(${student.id})">Editar</button>
                                 <button class="btn btn-danger" onclick="removeStudent(${student.id})">Eliminar</button>`;
 
@@ -156,7 +162,9 @@ function findAllStudents() {
         row.appendChild(phoneCell);
         row.appendChild(dateCell);
         row.appendChild(ageCell);
+        row.appendChild(observationsCell);
         row.appendChild(actionsCell);
+
 
         // Se inserta la fila al tbody
         tbody.appendChild(row);
@@ -192,6 +200,7 @@ function addStudent() {
         phone: phone.value,
         age: calculateAge(date.value),
         date: date.value,
+        observations: observationsInput.value || ""
     }
     // Lo agregamos al arra y al localStorage
     students.push(student);
@@ -225,6 +234,7 @@ function editStudent(id) {
     email.value = student.email;
     phone.value = student.phone;
     date.value = student.date;
+    observationsInput.value = student.observations
     submit.disabled = false;
 }
 
@@ -237,6 +247,7 @@ function updateStudent() {
     student.phone = phone.value;
     student.date = date.value;
     student.age = calculateAge(date.value)
+    student.observations = observationsInput.value;
     // Recargamos la tabla
     findAllStudents();
     // Actualizamos el localStorage
